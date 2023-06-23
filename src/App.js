@@ -3,22 +3,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Routes, Route, Link, NavLink } from "react-router-dom";
 import { CharacterDetails } from "./components/CharacterDetails";
+import { Create } from "./components/Create";
 function App() {
   const [character, setCharacter] = useState(null);
 
-  /* const characterCopy = structuredClone(character); */
-
-  const url = "https://ih-crud-api.herokuapp.com";
   useEffect(() => {
+    getCharactersFromApi();
+  }, []);
+
+  const getCharactersFromApi = () => {
     axios
-      .get(url + "/characters")
+      .get(process.env.REACT_APP_API_URL + "/characters")
       .then((response) => {
         setCharacter(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  };
 
   const renderListOfCharacters = () => {
     if (character === null) {
@@ -35,10 +37,6 @@ function App() {
       });
     }
   };
-  /*   let slicedArray = [];
-  if (characterCopy) {
-    slicedArray = characterCopy.slice(0, 10);
-  } */
 
   return (
     <div className="App">
@@ -51,6 +49,15 @@ function App() {
           }
         >
           Home
+        </NavLink>
+        <NavLink
+          id="navlink"
+          to="/create"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+        >
+          Create
         </NavLink>
         <NavLink
           id="navlink"
@@ -79,9 +86,14 @@ function App() {
 
       <Routes>
         <Route path="/" element={renderListOfCharacters()} />
+        <Route path="/create" element={<Create />} />
         <Route path="/about" element={<p>this is the about</p>} />
         <Route path="/contact" element={<p>this is the contact</p>} />
-        <Route path="/character/:characterId" element={<CharacterDetails />} />
+        <Route
+          path="/character/:characterId"
+          element={<CharacterDetails />}
+          callback={getCharactersFromApi}
+        />
       </Routes>
     </div>
   );

@@ -5,20 +5,19 @@
 h3 {
   margin-top: 0;
 }
-.character{
+.character {
   border: 2px solid blueviolet;
   margin: 0 0 10px 0;
   padding-top: 10px;
   background-color: aqua;
 }
-#navlink{
+#navlink {
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
   background-color: aquamarine;
-  color: white;
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
@@ -28,9 +27,9 @@ h3 {
   box-shadow: 2px 2px 5px grey;
 }
 
-nav .pending{
-  color: #000;
+nav .pending {
+  color: white;
 }
-nav .active{
-color: red;
+nav .active {
+  color: red;
 }
